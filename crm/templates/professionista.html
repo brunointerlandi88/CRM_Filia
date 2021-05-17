@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block head_title %}{{ block.super }} | Lista Clienti{% endblock head_title %}
+{% block content %}
+
+<br>
+<br>
+<h4>Professionista:</h4>
+<p><strong>Nome: </strong>{{ profs.nome }}</p>
+<p><strong>Cognome: </strong>{{ profs.cognome }}</p>
+<p><strong>Numero di telefono: </strong>{{ profs.tel }}</p>
+<p><strong>Data di nascita: </strong>{{ profs.data_di_nascita }}</p>
+<p><strong>Iscrizione all'albo: </strong>{{ profs.Iscrizione_albo }}</p>
+<p><strong>Numero di Iscrizione: </strong>{{ profs.Numero_iscrizione }}</p>
+{% if not profs.pdf %}
+<p><strong>File caricati: </strong><a href={{profs.pdf}}>Nessun file caricato</a></strong></p>
+{% else %}
+<p><strong>File caricati: </strong><a href={{profs.pdf.url}}>{{ profs.filename }}</a></strong></p>
+{% endif %}
+<hr>
+{% endblock content %}

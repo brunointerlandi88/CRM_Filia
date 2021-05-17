@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+
+<br>
+<br>
+<p>Sei sicuro di voler cancellare "{{item}}"?</p>
+
+<form action="{% url 'cancella_professionista' item.id  %}" method="POST">
+
+    {% csrf_token %}
+    <a class="btn btn-warning" href="{% url 'lista_professionisti' %}">Annulla</a>
+
+    <input class="btn btn-danger" type="submit" name="Confirm">
+</form>
+
+{% endblock %}

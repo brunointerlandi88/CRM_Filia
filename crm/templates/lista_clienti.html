@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block head_title %}
+{% load static %}
+{{ block.super }} | Lista Clienti{% endblock head_title %} {% block content %}
+<br>
+<a class="btn btn-outline-primary" href="{% url 'inserisci_cliente' %}" style="margin: 20px;">Nuovo Cliente</a>
+<hr>
+<table id="table" class="table table-striped table-bordered" style="width:100%">
+
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Intervento</th>
+            <th>Files</th>
+            <th>Data inserimento</th>
+            <th>Buttons</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in object_list %}
+        <tr>
+            <TD>{{ cliente.nome }}</TD>
+            <TD>{{ cliente.cognome }}</TD>
+            <TD>{{ cliente.intervento }}</TD>
+            {% if not cliente.pdf %}
+            <TD><a href={{cliente.pdf}}>Nessun file caricato</a></TD>
+            {% else %}
+            <TD><a href={{cliente.pdf.url}}>{{ cliente.filename }}</a></TD>
+            {% endif %}
+            <TD>{{ cliente.data_ins }}</TD>
+            <TD><a class="btn btn-sm btn-info" href="{% url 'aggiorna_cliente' cliente.id %}">Modifica</a>
+                <a class="btn btn-sm btn-info" href="{% url 'cliente' cliente.id %}">Visualizza</a>
+                <a class="btn btn-sm btn-info" href="{% url 'cancella_cliente' cliente.id %}">Cancella</a></button>
+            </TD>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr> {% endblock %} {% block js %}
+<script>
+    $('#table').DataTable({
+        dom: 'B<"clear">lfrtip',
+        buttons: {
+            name: 'primary',
+            buttons: ['copy', 'csv', 'excel', 'colvis']
+        },
+    });
+</script>
+</div>
+{% endblock %}
